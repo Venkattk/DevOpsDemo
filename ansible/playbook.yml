@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: latest
+
+    - name: Copy nginx config files
+      copy:
+        src: "./files/nginx.conf"
+        dest: "/etc/nginx/nginx.conf"
+        mode: 0644
+
+    - name: Creates directory
+      file: 
+        path: "/var/www/nginxiacdemo.com"
+        state: directory
+
+    - name: Copy static files
+      copy:
+        src: "./files/static_website/"
+        dest: "/var/www/nginxiacdemo.com/"
+        mode: 0644
+
+    - name: Update static nginx config
+      copy: 
+        src: "./files/static_website.conf"
+        dest: "/etc/nginx/conf.d/nginxiacdemo.com.conf"
+        mode: 0644
+
+    - name: Restart Nginx
+      service: name=nginx state=restarted
+      become: yes
+

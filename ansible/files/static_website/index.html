@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" >
+      function httpGet(theUrl)
+      {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false );
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+      }
+      document.getElementById("demo").innerHTML = httpGet('http://169.254.169.254/latest/meta-data/instance-id');
+	</script>
+</head>
+<body style="background-color:#33FFF3">
+
+	<h1>Welcome to Nginx IaC demo!!!</h1>
+	<h3> You are viewing the AWS EC2 instance id: <span id="demo"></span> <h3>
+
+</body>
+</html>
